@@ -12,14 +12,16 @@ import android.app.Activity;
 public final class LauncherPreferences {
  
         public static final String KEY_WORKSPACE_DEFAULT_PAGE = "pref_key_workspaceDefaultPage";
-
         public static final String KEY_SHOW_SEARCHBAR = "pref_key_showSearchBar";
+        public static final String KEY_ICON_PACK = "pref_key_iconpack";
 
         private static final String TAG = "LauncherPreferences";
 
         public static class PrefsFragment  extends PreferenceFragment {
             private SearchDropTargetBar mSearchDropTargetBar;
+            private Preference mDefaultWorkspace;
             private Preference mShowSearchBar;
+            private Preference mIconpack;
             private LauncherPreferencesActivity mContext;
 
             public PrefsFragment(LauncherPreferencesActivity context) {
@@ -32,17 +34,23 @@ public final class LauncherPreferences {
 
                 // Load the preferences from an XML resource
                 addPreferencesFromResource(R.xml.preferences );
-
+                mDefaultWorkspace = (Preference) findPreference(KEY_WORKSPACE_DEFAULT_PAGE);
                 mShowSearchBar = (Preference) findPreference(KEY_SHOW_SEARCHBAR);
+                mIconpack = (Preference) findPreference(KEY_ICON_PACK);
             }
             @Override
             public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                     Preference preference) {
-                if (preference == mShowSearchBar){
-                    if (mSearchDropTargetBar != null) {
-                        mSearchDropTargetBar.hideSearchBar(true);
-                        return true;
-                    }
+                if (preference == mDefaultWorkspace){
+                    Log.w(TAG, "Burger");
+                    return true;
+                } else if (preference == mShowSearchBar){
+                    Log.w(TAG, "Burger burger");
+                    return true;
+                } else if (preference == mIconpack){
+                    IconPackHelper.pickIconPack(mContext, false);
+                    Log.w(TAG, "Burger burger burger");
+                    return true;
                 }
                 return false;
             }
@@ -52,6 +60,7 @@ public final class LauncherPreferences {
 
         public static boolean isLauncherPreference(String key) {
                 return key.equals(KEY_WORKSPACE_DEFAULT_PAGE)
-                                || key.equals(KEY_SHOW_SEARCHBAR);
+                                || key.equals(KEY_SHOW_SEARCHBAR)
+                                || key.equals(KEY_ICON_PACK);
         }
 }
