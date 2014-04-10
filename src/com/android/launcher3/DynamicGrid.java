@@ -220,6 +220,11 @@ class DeviceProfile {
         folderCellHeightPx = cellHeightPx + (int) ((3f/2f) * edgeMarginPx);
         folderBackgroundOffset = -edgeMarginPx;
         folderIconSizePx = iconSizePx + 2 * -folderBackgroundOffset;
+
+        //android.util.Log.i("launcher", "DynamicGrid minWidthDps:" + minWidthDps + " minHeightDps:" + minHeightDps
+        //    + " numRows:" + numRows + " numColumns:" + numColumns
+        //    + " iconSizePx:" + iconSizePx + " iconTextSizePx:" + iconTextSizePx 
+        //    + " numHotseatIcons:" + numHotseatIcons + " hotseatIconSizePx:" + hotseatIconSizePx);
     }
 
     void updateFromConfiguration(Resources resources, int wPx, int hPx,
@@ -506,6 +511,10 @@ public class DynamicGrid {
         DisplayMetrics dm = resources.getDisplayMetrics();
         ArrayList<DeviceProfile> deviceProfiles =
                 new ArrayList<DeviceProfile>();
+
+        //android.util.Log.i("launcher", "DynamicGrid minWidthPx:" + minWidthPx + " minHeightPx:" + minHeightPx
+        //    + " widthPx:" + widthPx + " heightPx:" + heightPx + " awPx:" + awPx + " ahPx:" + ahPx);
+        
         boolean hasAA = !AppsCustomizePagedView.DISABLE_ALL_APPS;
         // Our phone profiles include the bar sizes in each orientation
         deviceProfiles.add(new DeviceProfile("Super Short Stubby",
@@ -524,6 +533,13 @@ public class DynamicGrid {
         // also includes the nav bar on the side
         deviceProfiles.add(new DeviceProfile("Nexus 7",
                 575, 904,  6, 6,  72, 14.4f,  7, 60));
+
+        deviceProfiles.add(new DeviceProfile("Retina-320",
+                695, 951,  5, 8,  72, 14.4f,  9, 64));
+
+        deviceProfiles.add(new DeviceProfile("1080p-240",
+                620, 1200,  5, 8,  64, 14.4f,  9, 64));
+        
         // Larger tablet profiles always have system bars on the top & bottom
         deviceProfiles.add(new DeviceProfile("Nexus 10",
                 727, 1207,  5, 8,  80, 14.4f,  9, 64));

@@ -978,6 +978,13 @@ public class Launcher extends Activity
     }
 
     protected void startSettings() {
+        try {
+            Intent intent = new Intent("android.settings.SETTINGS");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (ActivityNotFoundException e){
+            Log.e(TAG, "Unable to launch Settings ", e);
+        }
     }
 
     public interface QSBScroller {
