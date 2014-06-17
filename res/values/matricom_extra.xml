@@ -16,7 +16,13 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Do not translate - Dummy strings to quiet appt warnings -->
+    <string name="all_apps_cling_add_item"></string>
+    <string name="all_apps_cling_title"></string>
     <string name="chooser_wallpaper"></string>
+    <string name="custom_workspace_cling_description_1"></string>
+    <string name="custom_workspace_cling_description_2"></string>
+    <string name="custom_workspace_cling_title_1"></string>
+    <string name="custom_workspace_cling_title_2"></string>
     <string name="folder_cling_move_item"></string>
     <string name="group_wallpapers"></string>
     <string name="menu_add"></string>
