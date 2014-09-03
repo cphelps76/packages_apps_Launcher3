@@ -1065,17 +1065,15 @@ public class Launcher extends Activity
     }
 
     protected boolean hasSettings() {
-        return false;
+        return true;
     }
 
     protected void startSettings() {
-        try {
-            Intent intent = new Intent("android.settings.SETTINGS");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } catch (ActivityNotFoundException e){
-            Log.e(TAG, "Unable to launch Settings ", e);
-        }
+       Intent i = new Intent(android.provider.Settings.ACTION_SETTINGS);
+       startActivity(i);
+       if (mWorkspace.isInOverviewMode()) {
+           mWorkspace.exitOverviewMode(false);
+       }
     }
 
     public interface QSBScroller {
