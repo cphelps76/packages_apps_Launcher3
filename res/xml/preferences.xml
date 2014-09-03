@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto/com.android.launcher3">
+    <PreferenceCategory 
+        android:title="@string/pref_workspace_title"
+        android:key="pref_key_workspace_settings">
+
+        <com.android.launcher3.NumberPreference
+            android:key="pref_key_workspaceDefaultPage"
+            android:title="@string/pref_title_default_workspace"
+            android:defaultValue="0"
+            launcher:min="0"
+            launcher:max="10" />
+
+    </PreferenceCategory> 
+
+</PreferenceScreen>
