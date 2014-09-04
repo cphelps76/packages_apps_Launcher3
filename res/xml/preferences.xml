@@ -12,6 +12,11 @@
             launcher:min="0"
             launcher:max="10" />
 
+        <CheckBoxPreference
+            android:key="pref_key_showSearchBar"
+            android:title="@string/pref_title_show_search_bar"
+            android:defaultValue="false" />
+
     </PreferenceCategory> 
 
 </PreferenceScreen>
