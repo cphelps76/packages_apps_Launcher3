@@ -1,6 +1,7 @@
 package com.android.launcher3;
 
 import android.content.SharedPreferences;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -14,14 +15,15 @@ public final class LauncherPreferences {
         public static final String KEY_WORKSPACE_DEFAULT_PAGE = "pref_key_workspaceDefaultPage";
         public static final String KEY_SHOW_SEARCHBAR = "pref_key_showSearchBar";
         public static final String KEY_ICON_PACK = "pref_key_iconpack";
+        public static final String KEY_SCROLL_WALLPAPER = "pref_key_scroll_wallpaper";
 
         private static final String TAG = "LauncherPreferences";
 
         public static class PrefsFragment  extends PreferenceFragment {
-            private SearchDropTargetBar mSearchDropTargetBar;
             private Preference mDefaultWorkspace;
             private Preference mShowSearchBar;
             private Preference mIconpack;
+            private CheckBoxPreference mScrollWallpaper;
             private LauncherPreferencesActivity mContext;
 
             public PrefsFragment(LauncherPreferencesActivity context) {
@@ -37,7 +39,9 @@ public final class LauncherPreferences {
                 mDefaultWorkspace = (Preference) findPreference(KEY_WORKSPACE_DEFAULT_PAGE);
                 mShowSearchBar = (Preference) findPreference(KEY_SHOW_SEARCHBAR);
                 mIconpack = (Preference) findPreference(KEY_ICON_PACK);
+                mScrollWallpaper = (CheckBoxPreference) findPreference(KEY_SCROLL_WALLPAPER);
             }
+
             @Override
             public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                     Preference preference) {
@@ -51,6 +55,9 @@ public final class LauncherPreferences {
                     IconPackHelper.pickIconPack(mContext, false);
                     Log.w(TAG, "Burger burger burger");
                     return true;
+                } else if (preference == mScrollWallpaper){
+                    Log.w(TAG, "Burger burger burger burger");
+                    return true;
                 }
                 return false;
             }
@@ -61,6 +68,7 @@ public final class LauncherPreferences {
         public static boolean isLauncherPreference(String key) {
                 return key.equals(KEY_WORKSPACE_DEFAULT_PAGE)
                                 || key.equals(KEY_SHOW_SEARCHBAR)
-                                || key.equals(KEY_ICON_PACK);
+                                || key.equals(KEY_ICON_PACK)
+                                || key.equals(KEY_SCROLL_WALLPAPER);
         }
 }

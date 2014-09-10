@@ -267,6 +267,7 @@ s -->
     <string name="pref_workspace_title">Launcher settings</string>
     <string name="pref_title_default_workspace">Default Screen</string>
     <string name="pref_title_show_search_bar">Show Search Bar</string>
+    <string name="pref_title_homescreen_scrolling_wallpaper">Scroll wallpaper</string>
 
     <!-- Folder titles -->
     <string name="google_title" translatable="false">Google</string>

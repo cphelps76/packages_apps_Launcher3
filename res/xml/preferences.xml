@@ -21,6 +21,11 @@
             android:key="pref_key_iconpack"
             android:title="@string/pref_icon_pack_title" />
 
+        <CheckBoxPreference
+            android:key="pref_key_scroll_wallpaper"
+            android:title="@string/pref_title_homescreen_scrolling_wallpaper"
+            android:defaultValue="false" />
+
     </PreferenceCategory> 
 
 </PreferenceScreen>
