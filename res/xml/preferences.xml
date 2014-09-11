@@ -12,14 +12,14 @@
             launcher:min="0"
             launcher:max="10" />
 
+        <Preference
+            android:key="pref_key_iconpack"
+            android:title="@string/pref_icon_pack_title" />
+
         <CheckBoxPreference
             android:key="pref_key_showSearchBar"
             android:title="@string/pref_title_show_search_bar"
             android:defaultValue="false" />
-
-        <Preference
-            android:key="pref_key_iconpack"
-            android:title="@string/pref_icon_pack_title" />
 
         <CheckBoxPreference
             android:key="pref_key_scroll_wallpaper"
