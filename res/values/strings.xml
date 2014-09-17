@@ -268,6 +268,7 @@ s -->
     <string name="pref_title_default_workspace">Default Screen</string>
     <string name="pref_title_show_search_bar">Show Search Bar</string>
     <string name="pref_title_homescreen_scrolling_wallpaper">Scroll wallpaper</string>
+    <string name="pref_title_hide_icon_labels">Hide homescreen icon labels</string>
 
     <!-- Folder titles -->
     <string name="google_title" translatable="false">Google</string>

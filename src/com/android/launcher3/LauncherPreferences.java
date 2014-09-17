@@ -16,6 +16,7 @@ public final class LauncherPreferences {
         public static final String KEY_SHOW_SEARCHBAR = "pref_key_showSearchBar";
         public static final String KEY_ICON_PACK = "pref_key_iconpack";
         public static final String KEY_SCROLL_WALLPAPER = "pref_key_scroll_wallpaper";
+        public static final String KEY_HIDE_ICON_LABELS = "pref_key_hideIcons";
 
         private static final String TAG = "LauncherPreferences";
 
@@ -69,6 +70,7 @@ public final class LauncherPreferences {
                 return key.equals(KEY_WORKSPACE_DEFAULT_PAGE)
                                 || key.equals(KEY_SHOW_SEARCHBAR)
                                 || key.equals(KEY_ICON_PACK)
-                                || key.equals(KEY_SCROLL_WALLPAPER);
+                                || key.equals(KEY_SCROLL_WALLPAPER)
+                                || key.equals(KEY_HIDE_ICON_LABELS);
         }
 }

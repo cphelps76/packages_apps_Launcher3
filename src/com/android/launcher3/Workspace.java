@@ -283,6 +283,8 @@ public class Workspace extends SmoothPagedView
         }
     };
 
+    private boolean mHideIconLabels;
+
     /**
      * Used to inflate the Workspace from XML.
      *
@@ -333,7 +335,8 @@ public class Workspace extends SmoothPagedView
 
         mScrollWallpaper = PreferenceManager.getDefaultSharedPreferences(context)
                         .getBoolean(LauncherPreferences.KEY_SCROLL_WALLPAPER, false);
-
+        mHideIconLabels = PreferenceManager.getDefaultSharedPreferences(context)
+                .        getBoolean(LauncherPreferences.KEY_HIDE_ICON_LABELS, false);
         a.recycle();
 
         setOnHierarchyChangeListener(this);
@@ -997,7 +1000,9 @@ public class Workspace extends SmoothPagedView
         } else {
             // Show folder title if not in the hotseat
             if (child instanceof FolderIcon) {
-                ((FolderIcon) child).setTextVisible(true);
+                ((FolderIcon) child).setTextVisible(!mHideIconLabels);
+            } else if (child instanceof BubbleTextView) {
+                ((BubbleTextView) child).setTextVisibility(!mHideIconLabels);
             }
             layout = getScreenWithId(screenId);
             child.setOnKeyListener(new IconKeyEventListener());
@@ -2511,11 +2516,13 @@ public class Workspace extends SmoothPagedView
             d.draw(destCanvas);
         } else {
             if (v instanceof FolderIcon) {
-                // For FolderIcons the text can bleed into the icon area, and so we need to
-                // hide the text completely (which can't be achieved by clipping).
-                if (((FolderIcon) v).getTextVisible()) {
-                    ((FolderIcon) v).setTextVisible(false);
-                    textVisible = true;
+                if (!mHideIconLabels) {
+                    // For FolderIcons the text can bleed into the icon area, and so we need to
+                    // hide the text completely (which can't be achieved by clipping).
+                    if (((FolderIcon) v).getTextVisible()) {
+                        ((FolderIcon) v).setTextVisible(false);
+                        textVisible = true;
+                    }
                 }
             } else if (v instanceof BubbleTextView) {
                 final BubbleTextView tv = (BubbleTextView) v;
@@ -2531,7 +2538,7 @@ public class Workspace extends SmoothPagedView
             v.draw(destCanvas);
 
             // Restore text visibility of FolderIcon if necessary
-            if (textVisible) {
+            if (!mHideIconLabels && textVisible) {
                 ((FolderIcon) v).setTextVisible(true);
             }
         }
@@ -3855,6 +3862,7 @@ public class Workspace extends SmoothPagedView
             case LauncherSettings.Favorites.ITEM_TYPE_FOLDER:
                 view = FolderIcon.fromXml(R.layout.folder_icon, mLauncher, cellLayout,
                         (FolderInfo) info, mIconCache);
+                ((FolderIcon) view).setTextVisible(!mHideIconLabels);
                 break;
             default:
                 throw new IllegalStateException("Unknown item type: " + info.itemType);
@@ -4779,6 +4787,8 @@ public class Workspace extends SmoothPagedView
     private void reloadSettings() {
         mScrollWallpaper = PreferenceManager.getDefaultSharedPreferences(mLauncher)
                         .getBoolean(LauncherPreferences.KEY_SCROLL_WALLPAPER, false);
+        mHideIconLabels = PreferenceManager.getDefaultSharedPreferences(mLauncher)
+            .getBoolean(LauncherPreferences.KEY_HIDE_ICON_LABELS, false);
 
         if (!mScrollWallpaper) {
             if (mWindowToken != null) mWallpaperManager.setWallpaperOffsets(mWindowToken, 0f, 0.5f);

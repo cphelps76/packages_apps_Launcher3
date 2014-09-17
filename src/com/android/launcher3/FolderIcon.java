@@ -27,6 +27,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.os.Looper;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -148,7 +149,11 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         FolderIcon icon = (FolderIcon) LayoutInflater.from(launcher).inflate(resId, group, false);
         icon.setClipToPadding(false);
         icon.mFolderName = (BubbleTextView) icon.findViewById(R.id.folder_icon_name);
-        icon.mFolderName.setText(folderInfo.title);
+        boolean mHideIconLabels = PreferenceManager.getDefaultSharedPreferences(launcher)
+                .getBoolean(LauncherPreferences.KEY_HIDE_ICON_LABELS, false);
+        if (!mHideIconLabels) {
+            icon.mFolderName.setText(folderInfo.title);
+        }
         icon.mFolderName.setCompoundDrawablePadding(0);
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) icon.mFolderName.getLayoutParams();
         lp.topMargin = grid.iconSizePx + grid.iconDrawablePaddingPx;

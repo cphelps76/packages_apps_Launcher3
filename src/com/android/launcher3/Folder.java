@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.preference.PreferenceManager;
 import android.os.SystemClock;
 import android.support.v4.widget.AutoScrollHelper;
 import android.text.InputType;
@@ -105,6 +106,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     FolderEditText mFolderName;
     private float mFolderIconPivotX;
     private float mFolderIconPivotY;
+    private boolean mHideLabels;
 
     private boolean mIsEditingName = false;
     private InputMethodManager mInputMethodManager;
@@ -202,6 +204,13 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mFolderName.setInputType(mFolderName.getInputType() |
                 InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         mAutoScrollHelper = new FolderAutoScrollHelper(mScrollView);
+
+        mHideLabels = PreferenceManager.getDefaultSharedPreferences(mLauncher)
+                .getBoolean(LauncherPreferences.KEY_HIDE_ICON_LABELS, false);
+        if (mHideLabels) {
+            mFolderName.setVisibility(View.GONE);
+        }
+
     }
 
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -399,6 +408,11 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         updateTextViewFocus();
         mInfo.addListener(this);
 
+        setFolderName();
+        updateItemLocationsInDatabase();
+    }
+
+    public void setFolderName() {
         if (!sDefaultFolderName.contentEquals(mInfo.title)) {
             mFolderName.setText(mInfo.title);
         } else {
@@ -574,6 +588,10 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
         textView.setOnClickListener(this);
         textView.setOnLongClickListener(this);
+
+        if (mHideLabels) {
+            textView.setTextVisibility(!mHideLabels);
+        }
 
         // We need to check here to verify that the given item's location isn't already occupied
         // by another item.

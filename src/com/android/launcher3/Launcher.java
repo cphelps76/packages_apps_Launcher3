@@ -347,6 +347,8 @@ public class Launcher extends Activity
 
     private BubbleTextView mWaitingForResume;
 
+    private boolean mHideIconLabels;
+
     private Runnable mBuildLayersRunnable = new Runnable() {
         public void run() {
             if (mWorkspace != null) {
@@ -435,6 +437,8 @@ public class Launcher extends Activity
         // this also ensures that any synchronous binding below doesn't re-trigger another
         // LauncherModel load.
         mPaused = false;
+        mHideIconLabels = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(LauncherPreferences.KEY_HIDE_ICON_LABELS, false);
 
         if (PROFILE_STARTUP) {
             android.os.Debug.startMethodTracing(
@@ -1368,6 +1372,9 @@ public class Launcher extends Activity
     View createShortcut(int layoutResId, ViewGroup parent, ShortcutInfo info) {
         BubbleTextView favorite = (BubbleTextView) mInflater.inflate(layoutResId, parent, false);
         favorite.applyFromShortcutInfo(info, mIconCache);
+        if (mHideIconLabels) {
+            favorite.setTextVisible(false);
+        }
         favorite.setOnClickListener(this);
         return favorite;
     }
@@ -2279,6 +2286,10 @@ public class Launcher extends Activity
             FolderIcon.fromXml(R.layout.folder_icon, this, layout, folderInfo, mIconCache);
         mWorkspace.addInScreen(newFolder, container, screenId, cellX, cellY, 1, 1,
                 isWorkspaceLocked());
+        if (mHideIconLabels) {
+            newFolder.setTextVisible(false);
+        }
+
         // Force measure the new folder icon
         CellLayout parent = mWorkspace.getParentCellLayoutForView(newFolder);
         parent.getShortcutsAndWidgets().measureChild(newFolder);
@@ -3982,6 +3993,9 @@ public class Launcher extends Activity
                             (FolderInfo) item, mIconCache);
                     workspace.addInScreenFromBind(newFolder, item.container, item.screenId, item.cellX,
                             item.cellY, 1, 1);
+                    if (mHideIconLabels) {
+                        newFolder.setTextVisible(false);
+                    }
                     break;
                 default:
                     throw new RuntimeException("Invalid Item Type");
