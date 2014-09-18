@@ -131,7 +131,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.launcher3.LauncherPreferencesActivity"></activity>
+        <activity android:name="com.android.launcher3.LauncherPreferencesActivity"
+            android:label="@string/pref_workspace_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.category.LAUNCHER_PREFERENCES" />
+            </intent-filter>
+        </activity>
 
         <!-- Debugging tools -->
         <activity
